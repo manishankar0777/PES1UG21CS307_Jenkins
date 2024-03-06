@@ -1,0 +1,29 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+          steps {
+            build 'PES1UG21CS307-1'
+            sh 'g++ abd.cpp -o output'
+            }
+        }
+
+    stage('Test') {
+      steps {
+        sh './output'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'deploy'
+      }
+    }  
+  }
+          
+  post{
+    failure{
+      error 'Pipeline failed'
+    }
+  }
+}
